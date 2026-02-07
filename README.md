@@ -16,13 +16,12 @@ MOTIVATION:
 - Microscale dynamics are noisy and overdamped
 - Low-level force control is ineffective
 
-
 SOLUTION:
 - Replace force-level control with human intent
 - Use adaptive digital twin for prediction
 - Select actions via predictive control
-CORE ARCHITECTURE:
 
+# CORE ARCHITECTURE:
 
 Human Intent (Goal)
       ↓
@@ -37,7 +36,8 @@ Global Magnetic Actuation
 Heterogeneous Microrobot Swarm
       ↑
 State Feedback
-KEY CONTRIBUTIONS:
+
+# KEY CONTRIBUTIONS:
 - Physics-based microrobot swarm simulation
 - Explicit modeling of heterogeneity (drag, magnetization)
 - Adaptive digital twin with online parameter correction
@@ -166,3 +166,4 @@ EXPERIMENTAL FINDINGS:
 - Developed as a research-oriented project
 - Combines microrobotics, digital twins,
   predictive control, and human-in-the-loop systems
+
