@@ -1,172 +1,168 @@
-# Human-Intent–Driven Digital Twin Control of Magnetic Microrobot Swarms
+# 🧲 Human-Intent–Driven Digital Twin Control of Microrobot Swarms
 
-This repository presents a **fully software-based control framework** for
-**heterogeneous magnetic microrobot swarms**, driven by **human intent** and
-enhanced through an **adaptive digital twin**.
+```text
+PROJECT TYPE:
+- Research-grade
+- Simulation-based
+- Human-in-the-loop
+- Digital Twin + Predictive Control
 
-The project integrates physics-based swarm simulation, online digital-twin
-adaptation, and twin-predictive control, and is validated through
-quantitative experiments and an ablation study.
+DOMAIN:
+- Magnetic Microrobot Swarms
 
-This work is designed to be **research-oriented, modular, and extensible**,
-while remaining entirely simulation-based.
+MOTIVATION:
+- Individual microrobot actuation is impossible
+- Robots are heterogeneous
+- Microscale dynamics are noisy and overdamped
+- Low-level force control is ineffective
 
----
 
-## ✨ Key Contributions
+SOLUTION:
+- Replace force-level control with human intent
+- Use adaptive digital twin for prediction
+- Select actions via predictive control
+CORE ARCHITECTURE:
 
-- Physics-based microrobot swarm simulation (overdamped microscale dynamics)
-- Modeling of **heterogeneous microrobots** (variable drag and magnetic response)
-- **Adaptive digital twin** with online parameter correction
-- **Human-intent abstraction** (goal-level control instead of low-level forces)
-- **Twin-predictive control** using forward simulation
-- Quantitative performance evaluation
-- Ablation study:
-  - No digital twin
-  - Static digital twin
-  - Adaptive digital twin (proposed method)
 
----
-
-## 🧠 System Overview
-
-The framework follows a closed-loop architecture:
-
-Human Intent
-↓
+Human Intent (Goal)
+      ↓
 Intent Abstraction Layer
-↓
-Digital Twin (Predictive + Adaptive)
-↓
-Global Magnetic Control
-↓
+      ↓
+Adaptive Digital Twin
+      ↓
+Predictive Controller (Look-Ahead Simulation)
+      ↓
+Global Magnetic Actuation
+      ↓
 Heterogeneous Microrobot Swarm
-↑
+      ↑
 State Feedback
-
-
-
-Unlike conventional simulators, the **digital twin actively participates in
-control decisions**, predicting future swarm behavior before actions are applied.
-
-
----
-
-
-## 📁 Project Structure
-
+KEY CONTRIBUTIONS:
+- Physics-based microrobot swarm simulation
+- Explicit modeling of heterogeneity (drag, magnetization)
+- Adaptive digital twin with online parameter correction
+- Human-intent–driven swarm control
+- Twin-predictive control strategy
+- Quantitative evaluation
+- Full ablation study
+REPOSITORY STRUCTURE:
 
 
 microrobot-digital-twin-swarm/
 │
 ├── src/
-│ ├── control/ # Predictive and baseline controllers
-│ ├── intent/ # Human intent abstraction
-│ ├── models/ # Microrobot models
-│ ├── simulation/ # Swarm physics, digital twin, metrics
-│ │
-│ ├── run_experiment.py # Main experiment runner
-│ ├── run_ablation.py # Ablation study runner
-│ ├── plot_results.py # Task & twin error plots
-│ └── plot_ablation.py # Ablation comparison plot
+│   ├── control/              # Predictive & baseline controllers
+│   ├── intent/               # Human intent abstraction
+│   ├── models/               # Microrobot models
+│   ├── simulation/           # Swarm physics, digital twin, metrics
+│   │
+│   ├── run_experiment.py     # Main experiment
+│   ├── run_ablation.py       # Ablation study
+│   ├── plot_results.py       # Task & twin error plots
+│   └── plot_ablation.py      # Ablation comparison
 │
 ├── README.md
 └── .gitignore
 
-
-
----
-
-
-## ⚙️ Requirements
-
-
-- Python **3.9 or higher**
-- NumPy
-- Matplotlib
-
-
-Install dependencies:
-```bash
+# REQUIREMENTS:
+- Python >= 3.9
+- numpy
+- matplotlib
 pip install numpy matplotlib
-▶️ How to Run
-1️⃣ Run the main experiment
+
+# HOW TO RUN:
 cd src
 python -m run_experiment
-2️⃣ Plot task error and digital twin error
 python plot_results.py
-3️⃣ Run the ablation study
 python -m run_ablation
-4️⃣ Plot ablation comparison
 python plot_ablation.py
-📊 Evaluation Metrics
+EVALUATION METRICS:
 
-Task Error
-Euclidean distance between the swarm center and the target
+# METRIC 1: TASK ERROR
+Given:
+- N robots
+- p_i(t): position of robot i at time t
+- g: target position
 
-Digital Twin Error
-Mean position mismatch between the real swarm and the digital twin
 
-Ablation Performance
-Comparison across:
+Swarm center:
+c(t) = (1/N) * Σ p_i(t)
 
-No digital twin
 
-Static digital twin
+Task Error:
+E_task(t) = || c(t) - g ||
 
-Adaptive digital twin
+# INTERPRETATION:
+- Lower value = better goal achievement
+- Faster decay = faster convergence
+- Non-zero steady-state = heterogeneity + actuation limits
+METRIC 2: DIGITAL TWIN ERROR
+Given:
+- p_i_real(t): real robot position
+- p_i_twin(t): digital twin position
 
-📌 Key Findings
 
-Human-intent abstraction enables intuitive, high-level swarm control
+# Twin Error:
+E_twin(t) = (1/N) * Σ || p_i_real(t) - p_i_twin(t) ||
 
-Digital twins improve control performance when used predictively
+# INTERPRETATION:
+- Lower value = higher model fidelity
+- Bounded error = stable abstraction
+- Reduction over time = successful adaptation
+METRIC 3: ABLATION STUDY
 
-Online adaptation is essential for handling swarm heterogeneity
 
-Adaptive twin-based control consistently outperforms baseline methods
+# COMPARED CONTROLLERS:
+1. No Digital Twin
+2. Static Digital Twin
+3. Adaptive Digital Twin
 
-🚧 Limitations
+# COMPARED METRICS:
+- Convergence speed
+- Final task error
+- Stability of control
 
-Centralized magnetic actuation limits individual robot control
+# EXPECTED PERFORMANCE ORDER:
+Adaptive Twin > Static Twin > No Twin
+EXPERIMENTAL FINDINGS:
+- Human intent enables intuitive swarm-level control
+- Predictive control outperforms reactive control
+- Online adaptation is essential for heterogeneity
+- Adaptive digital twin achieves:
+  - Fastest convergence
+  - Lowest steady-state error
 
-Residual steady-state error exists due to heterogeneity
+# ADVANTAGES:
+- High-level human control (no force tuning)
+- Predictive decision making
+- Robust to robot heterogeneity
+- Modular and extensible architecture
+- Hardware-ready design
 
-Entirely simulation-based (no physical hardware validation)
+# LIMITATIONS:
+- Centralized magnetic actuation
+- Residual steady-state error
+- Simulation-only validation
 
-These are explicit design choices, not implementation shortcomings.
+# FUTURE WORK:
+- Real magnetic microrobot hardware integration
+- 3D swarm environments
+- Learning-based digital twin adaptation
+- Vision / gesture-based intent input
+- Multi-goal swarm control
 
-🔮 Future Extensions
+# INTENDED USE:
+- Final-year engineering projects
+- Research internships
+- Digital twin coursework
+- Swarm robotics & HRI studies
+- Academic GitHub portfolios
 
-Integration with real magnetic microrobot platforms
+# LICENSE:
+- Academic and educational use
+- Free to fork, modify, and extend
 
-3D swarm simulation
-
-Learning-based digital twin adaptation
-
-Vision- or gesture-based intent input
-
-Multi-objective task specification
-
-🎓 Academic Use
-
-Suitable for:
-
-Final-year undergraduate projects
-
-Research prototypes
-
-Digital twin and swarm robotics coursework
-
-Human–robot interaction studies
-
-📜 License
-
-Released for academic and educational use.
-You are free to fork, extend, and cite this work.
-
-✨ Acknowledgement
-
-This project was developed as a step-by-step, research-oriented implementation
-combining concepts from microrobotics, digital twins, control systems,
-and human-in-the-loop robotics.
+# ACKNOWLEDGEMENT:
+- Developed as a research-oriented project
+- Combines microrobotics, digital twins,
+  predictive control, and human-in-the-loop systems
