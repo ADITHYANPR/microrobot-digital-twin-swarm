@@ -10,6 +10,7 @@ plt.xlabel("Time step")
 plt.ylabel("Distance to target")
 plt.title("Task Error Over Time")
 plt.grid(True)
+plt.show()
 
 plt.figure()
 plt.plot(twin_error)
@@ -17,5 +18,4 @@ plt.xlabel("Time step")
 plt.ylabel("Mean Twin Error")
 plt.title("Digital Twin Error Over Time")
 plt.grid(True)
-
 plt.show()
